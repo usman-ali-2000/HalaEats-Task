@@ -2,6 +2,7 @@ import React from "react";
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, Platform } from "react-native";
 import { View } from "react-native";
 import theme from "../Theme/GlobalTheme";
+import { IMAGES } from "../assets/Data";
 
 const { height, width } = Dimensions.get('window');
 
@@ -10,7 +11,7 @@ export default function Header(props) {
     return (
         <View style={styles.main}>
             {props.onBack && <TouchableOpacity onPress={props.onBack} style={styles.left}>
-                <Image source={require('../assets/images/left.png')} style={styles.icon} />
+                <Image source={IMAGES.left} style={styles.icon} />
             </TouchableOpacity>}
             <Text style={styles.heading} numberOfLines={1} ellipsizeMode="tail">{props.heading}</Text>
             <TouchableOpacity onPress={props.onRightClick} style={styles.rightIcon}>

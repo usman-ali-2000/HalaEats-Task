@@ -2,9 +2,10 @@ import React from "react";
 import { Dimensions, FlatList, Image, Text, View } from "react-native";
 import styles from "./style";
 import Header from "../../components/Header";
-import { data1 } from "../../assets/Data";
+import { data1, IMAGES } from "../../assets/Data";
 import { TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
+import ProductCard from "../../components/ProductCard";
 
 const { height, width } = Dimensions.get('window');
 
@@ -12,17 +13,14 @@ export default function Home({ navigation }) {
 
     const cart = useSelector(state => state.cart);
     const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={() => { navigation.navigate('Detail', { id: item.id }) }} style={styles.flatContainer}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.price}>Rs {item.price}</Text>
-        </TouchableOpacity>
+        <ProductCard item={item} onPress={() => { navigation.navigate('Detail', { id: item.id }) }} />
     );
 
     return (
         <View style={styles.container}>
             <Header
                 heading="Home"
-                rightIcon={<Image source={require('../../assets/images/cart.png')} />}
+                rightIcon={<Image source={IMAGES.cart} />}
                 number={cart?.length}
                 onRightClick={() => navigation.navigate('Cart')}
             />

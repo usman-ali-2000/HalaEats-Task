@@ -3,8 +3,9 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./style";
 import Header from "../../components/Header";
+import CartItem from "../../components/CartItem";
 
-export default function Cart({navigation}) {
+export default function Cart({ navigation }) {
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
 
@@ -13,20 +14,12 @@ export default function Cart({navigation}) {
     };
 
     const renderItem = ({ item }) => (
-        <View style={styles.cartItem}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
-            <Text style={styles.itemPrice}>Price: Rs {item.price * item.quantity}</Text>
-            <TouchableOpacity onPress={() => handleRemoveFromCart(item.id)} style={styles.removeButton}>
-                <Text style={styles.removeButtonText}>Remove</Text>
-            </TouchableOpacity>
-        </View>
+        <CartItem item={item} onRemove={() => handleRemoveFromCart(item.id)} />
     );
 
     return (
         <View style={styles.container}>
-            <Header heading="Your Cart" onBack={()=>navigation.goBack()}/>
-            {/* <Text style={styles.heading}>Your Cart</Text> */}
+            <Header heading="Your Cart" onBack={() => navigation.goBack()} />
             <FlatList
                 data={cart}
                 renderItem={renderItem}

@@ -4,6 +4,9 @@ import styles from "./style";
 import Header from "../../components/Header";
 import { data1 } from "../../assets/Data";
 import { useDispatch } from "react-redux";
+import Button from "../../components/Button";
+import ProductCard from "../../components/ProductCard";
+import theme from "../../Theme/GlobalTheme";
 
 export default function Detail({ navigation, route }) {
     const id = route.params.id;
@@ -31,22 +34,8 @@ export default function Detail({ navigation, route }) {
     return (
         <View style={styles.container}>
             <Header heading="Product Details" onBack={() => navigation.goBack()} />
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.price}>Rs {item.price}</Text>
-
-            <View style={styles.quantityContainer}>
-                <TouchableOpacity onPress={decrementQuantity} style={styles.button}>
-                    <Text style={styles.buttonText}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.quantity}>{quantity}</Text>
-                <TouchableOpacity onPress={incrementQuantity} style={styles.button}>
-                    <Text style={styles.buttonText}>+</Text>
-                </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity onPress={handleAddToCart} style={styles.addToCartButton}>
-                <Text style={styles.addToCartText}>Add to Cart</Text>
-            </TouchableOpacity>
+            <ProductCard item={item} showQuantity={true} quantity={quantity} OnIncrement={incrementQuantity} OnDecrement={decrementQuantity} />
+            <Button title="Add to Cart" onPress={handleAddToCart} style={{ backgroundColor: theme.colors.green }} />
         </View>
     );
 }
